@@ -1,29 +1,28 @@
-'use strict'
+'use strict';
 
-const express = require('express')
-const bodyParser = require('body-parser').json
-const Frenchie = require('../schema/frenchies.js')
-const Dogwalkers = require('../schema/dogWalkers.js')
+const express = require('express');
+const Frenchie = require('../schema/frenchies.js');
+const Dogwalkers = require('../schema/dogWalkers.js');
 
-const mixedRouter = module.exports = express.Router()
+const mixedRouter = module.exports = express.Router();
 
 mixedRouter.get('/', (req,res,next) => {
   let dogWalkers_bitten;
   let dogs_died;
   Frenchie.aggregate([
 
-  {
-    '$group':{
-      '_id':null,
-      'total_bitten':{'$sum': '$dogWalkers_bitten'}
+    {
+      '$group':{
+        '_id':null,
+        'total_bitten':{'$sum': '$dogWalkers_bitten'}
+      }
     }
-  }
-], (err,frenchie) => {
-    if(err) return next(err)
-    dogWalkers_bitten = frenchie[0].total_bitten
-    console.log(dogWalkers_bitten)
+  ], (err,frenchie) => {
+    if(err) return next(err);
+    dogWalkers_bitten = frenchie[0].total_bitten;
+    console.log(dogWalkers_bitten);
 
-  })
+  });
 
   Dogwalkers.aggregate([
     {
@@ -33,11 +32,11 @@ mixedRouter.get('/', (req,res,next) => {
       }
     }
   ], (err,dogwalkers) => {
-    if(err) return next(err)
-    dogs_died = dogwalkers[0].dogs_died
-    console.log(dogs_died)
+    if(err) return next(err);
+    dogs_died = dogwalkers[0].dogs_died;
+    console.log(dogs_died);
 
-  })
-var message = `${dogWalkers_bitten > dogs_died ? 'A dogwalker': 'A dog'} has died`
-res.json(message)
-})
+  });
+  var message = `${dogWalkers_bitten > dogs_died ? 'A dogwalker': 'A dog'} has died`;
+  res.json(message);
+});

@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const frenchieRouter = require('./routes/frenchieRouter.js');
 const dogWalkerRouter = require('./routes/dogWalkerRouter.js');
 const mixedRouter = require('./routes/mixedRouter.js');
-const dbPort = process.env.MONGOLAB_URI || 'mongodb://localhost/dev_db';
+const dbPort = process.env.MONGODB_URI || 'mongodb://localhost/dev_db';
 
 mongoose.connect(dbPort);
 

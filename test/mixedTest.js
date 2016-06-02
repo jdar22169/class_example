@@ -28,7 +28,6 @@ describe('Non-crud endpoint', () => {
     let newFrenchie = new Frenchie({dogWalkers_bitten: 6});
     newFrenchie.save((err,frenchie) => {
       console.log(frenchie);
-
     });
 
     let newDogWalker = new Dogwalkers({dogs_died: 10});
